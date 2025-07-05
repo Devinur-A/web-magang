@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Penilaian Perusahaan</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/>
+  <style>
+    body {
+      background-color: #f4e9f9;
+    }
+    .sidebar {
+      height: 60px;
+      background-color: #660f8c;
+    }
+    .card-form {
+      border-radius: 15px;
+      background-color: #fff;
+      padding: 30px;
+    }
+    .badge-status {
+      padding: 8px 16px;
+      font-size: 0.9rem;
+      border-radius: 20px;
+    }
+    .badge-belum {
+      background-color: #fce8e6;
+      color: #c62828;
+    }
+    .badge-sudah {
+      background-color: #d1f7d6;
+      color: #1a7e3b;
+    }
+    .form-section {
+      margin-bottom: 25px;
+    }
+    .btn-simpan {
+      background-color: #7b1fa2;
+      color: white;
+    }
+    .btn-simpan:hover {
+      background-color: #66118f;
+    }
+    .hasil-penilaian {
+      background-color: #ffffff;
+      border-radius: 15px;
+      padding: 20px;
+      margin-top: 30px;
+    }
+    .radio-group label {
+      margin-right: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar d-flex align-items-center px-3">
+     <nav class="navbar navbar-custom">
+    <div class="container-fluid">
+      <a href="dashboard.html" class="text-white d-flex align-items-center">
+        <i class="bi bi-arrow-left"></i>
+        <span class="ms-2 fw-semibold" style="font-size: 1.1rem;">Penilaian Perusahaan</span>
+      </a>
+    </div>
+  </nav>
+  </div>
+
+  <!-- Container -->
+  <div class="container my-4">
+
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+          <p class="mb-1 fw-semibold">PT Maju Teknologi Indonesia</p>
+          <p class="mb-0">Formulir penilaian untuk <strong>Devi Nur Anisah (2401.5219)</strong></p>
+          <p class="mb-0">Periode Magang 1 Juni - 31 Agustus 2025</p>
+        </div>
+        <span id="badgeStatus" class="badge-status badge-belum">Belum Dinilai</span>
+      </div>
+
+      <!-- Form -->
+      <form id="nilaiForm">
+        <!-- Penilaian -->
+        <div class="form-section">
+          <label class="fw-semibold">Kedisiplinan</label>
+          <p class="text-muted">Ketepatan waktu dan kepatuhan terhadap aturan</p>
+          <div class="radio-group">
+            <label><input class="form-check-input" type="radio" name="kedisiplinan" value="1" required> 1</label>
+            <label><input class="form-check-input" type="radio" name="kedisiplinan" value="2"> 2</label>
+            <label><input class="form-check-input" type="radio" name="kedisiplinan" value="3"> 3</label>
+            <label><input class="form-check-input" type="radio" name="kedisiplinan" value="4"> 4</label>
+            <label><input class="form-check-input" type="radio" name="kedisiplinan" value="5"> 5</label>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <label class="fw-semibold">Kualitas Kerja</label>
+          <p class="text-muted">Kualitas dari hasil pekerjaan</p>
+          <div class="radio-group">
+            <label><input class="form-check-input" type="radio" name="kualitas_kerja" value="1" required> 1</label>
+            <label><input class="form-check-input" type="radio" name="kualitas_kerja" value="2"> 2</label>
+            <label><input class="form-check-input" type="radio" name="kualitas_kerja" value="3"> 3</label>
+            <label><input class="form-check-input" type="radio" name="kualitas_kerja" value="4"> 4</label>
+            <label><input class="form-check-input" type="radio" name="kualitas_kerja" value="5"> 5</label>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <label class="fw-semibold">Kemampuan Teknis</label>
+          <p class="text-muted">Penguasaan alat dan teknologi</p>
+          <div class="radio-group">
+            <label><input class="form-check-input" type="radio" name="kemampuan_teknis" value="1" required> 1</label>
+            <label><input class="form-check-input" type="radio" name="kemampuan_teknis" value="2"> 2</label>
+            <label><input class="form-check-input" type="radio" name="kemampuan_teknis" value="3"> 3</label>
+            <label><input class="form-check-input" type="radio" name="kemampuan_teknis" value="4"> 4</label>
+            <label><input class="form-check-input" type="radio" name="kemampuan_teknis" value="5"> 5</label>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <label class="fw-semibold">Kerjasama Tim</label>
+          <p class="text-muted">Kemampuan berkolaborasi</p>
+          <div class="radio-group">
+            <label><input class="form-check-input" type="radio" name="kerjasama_tim" value="1" required> 1</label>
+            <label><input class="form-check-input" type="radio" name="kerjasama_tim" value="2"> 2</label>
+            <label><input class="form-check-input" type="radio" name="kerjasama_tim" value="3"> 3</label>
+            <label><input class="form-check-input" type="radio" name="kerjasama_tim" value="4"> 4</label>
+            <label><input class="form-check-input" type="radio" name="kerjasama_tim" value="5"> 5</label>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <label class="fw-semibold">Inisiatif</label>
+          <p class="text-muted">Kemampuan mengambil tindakan dan berinovasi</p>
+          <div class="radio-group">
+            <label><input class="form-check-input" type="radio" name="inisiatif" value="1" required> 1</label>
+            <label><input class="form-check-input" type="radio" name="inisiatif" value="2"> 2</label>
+            <label><input class="form-check-input" type="radio" name="inisiatif" value="3"> 3</label>
+            <label><input class="form-check-input" type="radio" name="inisiatif" value="4"> 4</label>
+            <label><input class="form-check-input" type="radio" name="inisiatif" value="5"> 5</label>
+          </div>
+        </div>
+
+        <!-- Komentar -->
+        <div class="form-section">
+          <label class="fw-semibold">Komentar dan Saran</label>
+          <textarea class="form-control" rows="4" name="komentar" required></textarea>
+        </div>
+
+        <!-- Penilai -->
+        <div class="row g-2 mb-4">
+          <div class="col-md-6">
+            <input type="text" class="form-control" name="nama_penilai" placeholder="Nama Penilai" required>
+          </div>
+          <div class="col-md-6">
+            <input type="text" class="form-control" name="jabatan_penilai" placeholder="Posisi Jabatan Penilai" required>
+          </div>
+        </div>
+
+        <!-- Tombol -->
+        <div class="d-flex justify-content-end">
+          <button type="reset" class="btn btn-outline-secondary me-2">Batal</button>
+          <button type="submit" class="btn btn-simpan">Simpan Penilaian</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Hasil Penilaian -->
+    <div class="hasil-penilaian shadow d-none" id="hasilPenilaian">
+      <h5 class="fw-bold mb-3">Hasil Penilaian</h5>
+      <ul class="list-group mb-3" id="hasilList"></ul>
+      <p><strong>Komentar:</strong></p>
+      <p id="komentarText"></p>
+      <p class="mt-3 text-muted" id="penilaiInfo"></p>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('nilaiForm');
+    const badge = document.getElementById('badgeStatus');
+    const hasilBox = document.getElementById('hasilPenilaian');
+    const hasilList = document.getElementById('hasilList');
+    const komentarText = document.getElementById('komentarText');
+    const penilaiInfo = document.getElementById('penilaiInfo');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      badge.textContent = 'Sudah Dinilai';
+      badge.classList.remove('badge-belum');
+      badge.classList.add('badge-sudah');
+
+      const data = new FormData(form);
+      const entries = Array.from(data.entries());
+
+      hasilList.innerHTML = '';
+      entries.forEach(([key, value]) => {
+        if (key !== 'komentar' && key !== 'nama_penilai' && key !== 'jabatan_penilai') {
+          const item = document.createElement('li');
+          item.classList.add('list-group-item');
+          item.textContent = `${formatKey(key)}: ${value}`;
+          hasilList.appendChild(item);
+        }
+      });
+
+      komentarText.textContent = data.get('komentar');
+      penilaiInfo.textContent = `Penilai: ${data.get('nama_penilai')} (${data.get('jabatan_penilai')})`;
+
+      hasilBox.classList.remove('d-none');
+    });
+
+    function formatKey(str) {
+      return str.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

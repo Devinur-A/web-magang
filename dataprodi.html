@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Data Prodi</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f3e5f5;
+    }
+    .navbar-custom {
+      background-color: #4a148c;
+    }
+    .card-box {
+      border-radius: 15px;
+      padding: 20px;
+      background: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .chart-box {
+      height: 250px;
+      border-radius: 15px;
+      background: white;
+      padding: 10px;
+    }
+    .status-badge {
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+    }
+    .status-aktif {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .status-menunggu {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-custom w-100">
+    <div class="container-fluid">
+      <a href="dashboard.html" class="d-flex align-items-center text-white text-decoration-none">
+        <i class="bi bi-arrow-left"></i>
+        <span class="ms-2 fw-semibold" style="font-size: 1.1rem;">Data Prodi <i class="bi bi-chevron-down"></i></span>
+      </a>
+    </div>
+  </nav>
+
+  <div class="container py-4">
+    <div class="d-flex justify-content-end gap-2 mb-3">
+      <button class="btn btn-outline-success btn-sm">Import Excel</button>
+      <button class="btn btn-success btn-sm">+ Tambah</button>
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-3">
+        <div class="card-box">
+          <div>Total Mahasiswa</div>
+          <h3>124</h3>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card-box">
+          <div>Magang Aktif</div>
+          <h3>87</h3>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card-box">
+          <div>Menunggu Persetujuan</div>
+          <h3>15</h3>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card-box">
+          <div>Perusahaan Mitra</div>
+          <h3>42</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-6">
+        <div class="chart-box">
+          <canvas id="lineChart"></canvas>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="chart-box">
+          <canvas id="pieChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex gap-2 align-items-center mb-2">
+      <input type="text" class="form-control" id="searchInput" placeholder="Cari mahasiswa...">
+      <select class="form-select" id="prodiFilter">
+        <option value="">Semua Prodi</option>
+        <option>D3 Teknik Informatika</option>
+        <option>Teknik Elektro</option>
+      </select>
+      <select class="form-select" id="statusFilter">
+        <option value="">Semua Status</option>
+        <option>Aktif</option>
+        <option>Menunggu</option>
+      </select>
+      <button class="btn btn-primary" id="filterBtn">Filter</button>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead class="table-light">
+          <tr>
+            <th>Mahasiswa</th>
+            <th>NIM</th>
+            <th>Program Studi</th>
+            <th>Perusahaan</th>
+            <th>Periode</th>
+            <th>Status</th>
+            <th>Nilai</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+
+    <nav>
+      <ul class="pagination justify-content-end" id="pagination"></ul>
+    </nav>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const mahasiswaData = Array.from({ length: 50 }, (_, i) => ({
+      nama: `Mahasiswa ${i + 1}`,
+      nim: `24101${i.toString().padStart(3, '0')}`,
+      prodi: i % 3 === 0 ? 'Teknik Elektro' : 'D3 Teknik Informatika',
+      perusahaan: i % 2 === 0 ? 'PT Grand Listrik Indonesia' : 'PT Global Digital Niaga',
+      periode: '1 Jan - 31 Agu 2025',
+      status: i % 4 === 0 ? 'Menunggu' : 'Aktif',
+      nilai: i % 4 === 0 ? '-' : '4.00 (A)'
+    }));
+
+    const searchInput = document.getElementById('searchInput');
+    const prodiSelect = document.getElementById('prodiFilter');
+    const statusSelect = document.getElementById('statusFilter');
+    const filterButton = document.getElementById('filterBtn');
+    const tableBody = document.getElementById('tableBody');
+    const pagination = document.getElementById('pagination');
+
+    const rowsPerPage = 10;
+    let currentPage = 1;
+    let filteredData = [...mahasiswaData];
+
+    function renderTable(data) {
+      const start = (currentPage - 1) * rowsPerPage;
+      const end = start + rowsPerPage;
+      const visibleData = data.slice(start, end);
+
+      tableBody.innerHTML = visibleData.map(row => `
+        <tr>
+          <td>${row.nama}</td>
+          <td>${row.nim}</td>
+          <td>${row.prodi}</td>
+          <td>${row.perusahaan}</td>
+          <td>${row.periode}</td>
+          <td><span class="status-badge ${row.status === 'Aktif' ? 'status-aktif' : 'status-menunggu'}">${row.status}</span></td>
+          <td>${row.nilai}</td>
+          <td><button class="btn btn-sm btn-outline-primary">Detail</button></td>
+        </tr>
+      `).join('');
+
+      renderPagination(data.length);
+    }
+
+    function renderPagination(totalItems) {
+      const pageCount = Math.ceil(totalItems / rowsPerPage);
+      pagination.innerHTML = '';
+
+      for (let i = 1; i <= pageCount; i++) {
+        pagination.innerHTML += `
+          <li class="page-item ${i === currentPage ? 'active' : ''}">
+            <a class="page-link" href="#" onclick="goToPage(${i})">${i}</a>
+          </li>`;
+      }
+    }
+
+    function goToPage(page) {
+      currentPage = page;
+      renderTable(filteredData);
+    }
+
+    function applyFilter() {
+      const keyword = searchInput.value.toLowerCase();
+      const prodi = prodiSelect.value;
+      const status = statusSelect.value;
+
+      filteredData = mahasiswaData.filter(m => {
+        return (
+          m.nama.toLowerCase().includes(keyword) &&
+          (prodi === '' || m.prodi === prodi) &&
+          (status === '' || m.status === status)
+        );
+      });
+
+      currentPage = 1;
+      renderTable(filteredData);
+    }
+
+    filterButton.addEventListener('click', applyFilter);
+    searchInput.addEventListener('keyup', applyFilter);
+
+    // Chart.js
+    new Chart(document.getElementById('lineChart'), {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [{
+          label: 'Mahasiswa Aktif',
+          data: [10, 20, 35, 50, 70, 87],
+          borderColor: '#4a148c',
+          tension: 0.3,
+          fill: false
+        }]
+      }
+    });
+
+    new Chart(document.getElementById('pieChart'), {
+      type: 'pie',
+      data: {
+        labels: ['Aktif', 'Menunggu'],
+        datasets: [{
+          data: [87, 15],
+          backgroundColor: ['#81c784', '#fff176']
+        }]
+      }
+    });
+
+    // Load awal
+    renderTable(mahasiswaData);
+  </script>
+</body>
+</html>
