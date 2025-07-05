@@ -64,14 +64,22 @@
       color: #4A148C;
     }
 
-    .btn-menu {
+    .btn-menu-custom {
+      border: 2px solid #6A1B9A; 
+      color: #6A1B9A;
+      background-color: #ffffff;
       border-radius: 12px;
-      padding: 12px;
-      width: 100%;
-      margin-bottom: 15px;
+      padding: 20px;
+      margin-top: 20px;
+      display: block;
       font-weight: 500;
+      transition: all 0.3s ease;
     }
 
+    .btn-menu-custom:hover {
+      background-color: #f3e5f5;
+      text-decoration: none;
+    }
     .cert-btn {
       display: block;
       width: 100%;
@@ -188,32 +196,32 @@
   <!-- Menu Buttons -->
   <div class="row text-center">
     <div class="col-md-4">
-      <a href="pendaftaran.html" class="btn btn-primary btn-menu">
+      <a href="pendaftaran.html" class="btn-menu-custom">
         <i class="bi bi-journal-text"></i> Pendaftaran Magang
       </a>
     </div>
     <div class="col-md-4">
-      <a href="loogbook.html" class="btn btn-primary btn-menu">
+      <a href="loogbook.html" class="btn-menu-custom">
         <i class="bi bi-journal-text me-2"></i> Laporan Magang
       </a>
     </div>
     <div class="col-md-4">
-      <a href="dataprodi.html" class="btn btn-primary btn-menu">
+      <a href="dataprodi.html" class="btn-menu-custom">
         <i class="bi bi-folder2-open me-2"></i> Data Prodi
       </a>
     </div>
     <div class="col-md-4">
-      <a href="persetujuan.html" class="btn btn-primary btn-menu">
+      <a href="persetujuan.html" class="btn-menu-custom">
         <i class="bi bi-check2-circle me-2"></i> Persetujuan Magang
       </a>
     </div>
     <div class="col-md-4">
-      <a href="penilaian.html" class="btn btn-primary btn-menu">
+      <a href="penilaian.html" class="btn-menu-custom">
         <i class="bi bi-building me-2"></i> Penilaian Perusahaan
       </a>
     </div>
     <div class="col-md-4">
-      <a href="sertif.html" class="btn btn-outline-primary cert-btn">
+      <a href="sertif.html" class="btn-menu-custom">
         <i class="bi bi-printer-fill me-2"></i> Cetak Sertifikat Magang
       </a>
     </div>
