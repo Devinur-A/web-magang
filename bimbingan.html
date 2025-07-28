@@ -105,7 +105,7 @@
   <!-- Main Container -->
   <div class="container my-4">
     <div class="row g-3">
-      <!-- Left: Info Magang -->
+      <!-- Info Magang -->
       <div class="col-md-4">
         <div class="left-panel shadow-sm">
           <h6 class="fw-bold">Informasi Magang</h6>
@@ -122,7 +122,7 @@
         </div>
       </div>
 
-      <!-- Right: Chat Panel -->
+      <!-- Chat Panel -->
       <div class="col-md-8">
         <div class="right-panel shadow-sm d-flex flex-column">
           <div class="chat-scroll mb-3" id="chatBox">
@@ -180,7 +180,7 @@
         `;
         chatBox.insertAdjacentHTML('beforeend', fileMessage);
         chatBox.scrollTop = chatBox.scrollHeight;
-        this.value = ''; // reset
+        this.value = ''; 
       }
     });
 
