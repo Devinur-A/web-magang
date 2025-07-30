@@ -163,7 +163,7 @@
   </div>
 
   <script>
-    // Tampilkan/matikan password
+
     function toggleVisibility(id, iconElement) {
       const input = document.getElementById(id);
       const icon = iconElement.querySelector("i");
@@ -177,13 +177,13 @@
       feather.replace();
     }
 
-    // Ganti tampilan form login/register
+
     function toggleForm(form) {
       document.getElementById("loginForm").classList.toggle("d-none", form !== 'login');
       document.getElementById("registerForm").classList.toggle("d-none", form !== 'register');
     }
 
-    // Saat halaman dimuat: cek apakah query ?register ada
+
     window.addEventListener('DOMContentLoaded', () => {
       if (window.location.search.includes("register")) {
         toggleForm('register');
